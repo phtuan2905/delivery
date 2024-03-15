@@ -10,13 +10,13 @@ public class PlayerRandomSpawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        CheckWall();
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckWall();
+        
     }
 
     void CheckWall()

@@ -6,7 +6,9 @@ public class MisMaSys : MonoBehaviour
 {
     public GameObject Delivery;
     public GameObject DropoffSpot;
-    public bool isMission = false;
+    bool onMission = false;
+    public GameObject platform;
+    public GameObject CheckBox;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,18 +18,20 @@ public class MisMaSys : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckDelivey();
+        SpawnMission();
     }
-
-    void CheckDelivey()
+    
+    void SpawnMission()
     {
-        if (!isMission)
+        if (!onMission)
         {
-            GameObject cloneDelivery = Instantiate(Delivery, transform);
-            cloneDelivery.transform.position = new Vector3(Random.Range(-100, 101), 0.25f, Random.Range(-100, 101));
-            GameObject cloneDropoffSpot = Instantiate(DropoffSpot, transform);
-            cloneDropoffSpot.transform.position = new Vector3(Random.Range(-100, 101), 1f, Random.Range(-100, 101));
-            isMission = true;
+            GameObject cloneDelivery = Instantiate(Delivery);
+            
+
+            GameObject cloneDropoffSpot = Instantiate(DropoffSpot);
+
+
+            onMission = true;
         }
         else
         {
@@ -36,9 +40,25 @@ public class MisMaSys : MonoBehaviour
                 if (child.CompareTag("Drop-off Spot") && child.GetComponent<DropOffSpot>().isDelivered)
                 {
                     Destroy(child.gameObject);
-                    isMission = false;
+                    onMission = false;
                 }
             }
+        }
+    }
+
+    bool CheckLocation()
+    {
+        GameObject cloneCheckBox = Instantiate(CheckBox);
+        cloneCheckBox.transform.position = new Vector3(Random.Range(-1 * platform.transform.localScale.x / 2, platform.transform.localScale.x / 2), 1, Random.Range(-1 * platform.transform.localScale.z / 2, platform.transform.localScale.z / 2));
+        if (cloneCheckBox.GetComponent<CheckBox>().isWall)
+        {
+            Destroy(cloneCheckBox);
+            return false;
+        }
+        else
+        {
+            Destroy(cloneCheckBox);
+            return true;
         }
     }
 }
