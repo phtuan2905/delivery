@@ -19,7 +19,7 @@ public class DropOffSpot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Player"))
+        if (other.transform.CompareTag("Player") && other.gameObject.GetComponent<PlayerCheckDelivery>().GetDelivery)
         {
             isDelivered = true;
         }

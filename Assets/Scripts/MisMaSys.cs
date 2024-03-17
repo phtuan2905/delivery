@@ -45,20 +45,4 @@ public class MisMaSys : MonoBehaviour
             }
         }
     }
-
-    bool CheckLocation()
-    {
-        GameObject cloneCheckBox = Instantiate(CheckBox);
-        cloneCheckBox.transform.position = new Vector3(Random.Range(-1 * platform.transform.localScale.x / 2, platform.transform.localScale.x / 2), 1, Random.Range(-1 * platform.transform.localScale.z / 2, platform.transform.localScale.z / 2));
-        if (cloneCheckBox.GetComponent<CheckBox>().isWall)
-        {
-            Destroy(cloneCheckBox);
-            return false;
-        }
-        else
-        {
-            Destroy(cloneCheckBox);
-            return true;
-        }
-    }
 }

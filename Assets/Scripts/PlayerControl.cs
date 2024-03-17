@@ -35,8 +35,10 @@ public class PlayerControl : MonoBehaviour
     {
         float Move = Input.GetAxisRaw("Vertical");
         float Rotate = Input.GetAxisRaw("Horizontal");
+
         inertia = 0;
         deceleration = defaultDeceleration;
+
         if (Move < 0)
         {
             deceleration = brakeDeceleration;
@@ -47,7 +49,7 @@ public class PlayerControl : MonoBehaviour
             CheckBrakeOrBackdown();
             if (speed < 0)
             {   
-                transform.Rotate(new Vector3(0f, backdownRotateSpeed, 0f) * Rotate * Time.deltaTime);
+                //transform.Rotate(new Vector3(0f, backdownRotateSpeed, 0f) * Rotate * Time.deltaTime);
             }
         }
         else if ((Move + inertia) > 0)
@@ -56,17 +58,20 @@ public class PlayerControl : MonoBehaviour
             {
                 StartCoroutine(Accelerating());
             }
-            transform.Rotate(new Vector3(0f, rotateSpeed, 0f) * Rotate * Time.deltaTime);
+            //transform.Rotate(new Vector3(0f, rotateSpeed, 0f) * Rotate * Time.deltaTime);
         }        
         else if (Move == 0)
+
         {
             if (speed > 0)
             {
                 StartCoroutine(Decelerating());
-                transform.Rotate(new Vector3(0f, backdownRotateSpeed, 0f) * Rotate * Time.deltaTime);
+                //transform.Rotate(new Vector3(0f, backdownRotateSpeed, 0f) * Rotate * Time.deltaTime);
             }
             SetInertia();
         }
+
+        transform.Rotate(new Vector3(0f, rotateSpeed, 0f) * Rotate * Time.deltaTime);
 
         direction = new Vector3(Navigator.position.x - transform.position.x, 0f, Navigator.position.z - transform.position.z).normalized;
 
