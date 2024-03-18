@@ -70,7 +70,7 @@ public class PlayerControl : MonoBehaviour
             }
             SetInertia();
         }
-
+            
         transform.Rotate(new Vector3(0f, rotateSpeed, 0f) * Rotate * Time.deltaTime);
 
         direction = new Vector3(Navigator.position.x - transform.position.x, 0f, Navigator.position.z - transform.position.z).normalized;
