@@ -16,14 +16,11 @@ public class DeliveryPickup : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.transform.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            transform.SetParent(collision.transform);
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            gameObject.GetComponent<BoxCollider>().enabled = false;
-            transform.position = new Vector3(collision.transform.position.x, 1.25f, collision.transform.position.z);
+            Destroy(gameObject);
         }
     }
 }

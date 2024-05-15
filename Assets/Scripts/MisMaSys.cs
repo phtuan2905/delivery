@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class MisMaSys : MonoBehaviour
 {
-    public GameObject Delivery;
+    public GameObject PickupSpot;
     public GameObject DropoffSpot;
+    public GameObject Missions;
     bool onMission = false;
-    public GameObject platform;
-    public GameObject CheckBox;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,24 +25,46 @@ public class MisMaSys : MonoBehaviour
     {
         if (!onMission)
         {
-            GameObject cloneDelivery = Instantiate(Delivery);
-            
+            int randomPickupSpot = Random.Range(0, transform.childCount);
+            int randomDropoffSpot = Random.Range(0, transform.childCount);
+            while (CheckDistance(transform.GetChild(randomPickupSpot).position, transform.GetChild(randomDropoffSpot).position))
+            {
+                randomDropoffSpot = Random.Range(0, transform.childCount);
+            }
 
-            GameObject cloneDropoffSpot = Instantiate(DropoffSpot);
-
+            GameObject clonePickupSpot = Instantiate(PickupSpot, Missions.transform);
+            clonePickupSpot.transform.position = transform.GetChild(randomPickupSpot).position;
+            //clonePickupSpot.transform.position += new Vector3(0, 0, 0);
+            GameObject cloneDropoffSpot = Instantiate(DropoffSpot, Missions.transform);
+            cloneDropoffSpot.transform.position = transform.GetChild(randomDropoffSpot).position;
+            //cloneDropoffSpot.transform.position += new Vector3(0, 0, 0);
 
             onMission = true;
         }
         else
         {
-            foreach (Transform child in transform)
+            foreach (Transform child in Missions.transform)
             {
-                if (child.CompareTag("Drop-off Spot") && child.GetComponent<DropOffSpot>().isDelivered)
+                if (child.gameObject.CompareTag("Drop-off Spot") && child.GetComponent<DropOffSpot>().isDelivered)
                 {
                     Destroy(child.gameObject);
                     onMission = false;
+                    Missions.GetComponent<MissionTimer>().time = Missions.GetComponent<MissionTimer>().MaxTime;
+                    Missions.GetComponent<MissionTimer>().MissionCount++;
                 }
             }
+            
         }
     }
+
+    bool CheckDistance(Vector3 coordinate1, Vector3 coordinate2)
+    {
+        float distance = Mathf.Sqrt(Mathf.Pow(coordinate1.x - coordinate2.x, 2f) + Mathf.Pow(coordinate1.z - coordinate2.z, 2f));
+        if (distance <= 50f)
+        {
+            return true;
+        }
+        return false;
+    }
+
 }

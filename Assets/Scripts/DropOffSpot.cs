@@ -22,6 +22,7 @@ public class DropOffSpot : MonoBehaviour
         if (other.transform.CompareTag("Player") && other.gameObject.GetComponent<PlayerCheckDelivery>().GetDelivery)
         {
             isDelivered = true;
+            other.GetComponent<PlayerCheckDelivery>().GetDelivery = false;
         }
     }
 }

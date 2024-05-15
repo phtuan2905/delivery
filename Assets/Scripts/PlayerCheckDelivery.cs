@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerCheckDelivery : MonoBehaviour
 {
     public bool GetDelivery = false;
+    public List<GameObject> Deliveries;
+    public Transform DeliveryPosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,27 +16,22 @@ public class PlayerCheckDelivery : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckDelivery();
+        
     }
 
-    void CheckDelivery()
-    {
-        GetDelivery = false;
-        foreach (Transform child in transform)
-        {
-            if (child.CompareTag("Delivery"))
-            {
-                GetDelivery = true;
-            }
-        }
-    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Drop-off Spot") && GetComponent<PlayerCheckDelivery>().GetDelivery)
+        if (other.gameObject.CompareTag("Pick-up Spot"))
         {
-            foreach (Transform child in transform)
+            GetDelivery = true;
+            GameObject cloneDelivery = Instantiate(Deliveries[Random.Range(0, Deliveries.Count)], DeliveryPosition);
+            cloneDelivery.transform.position = DeliveryPosition.position;
+        }
+        else if (other.gameObject.CompareTag("Drop-off Spot"))
+        {
+            foreach (Transform child in DeliveryPosition) 
             {
-                if (child.CompareTag("Delivery"))
+                if (child.gameObject.CompareTag("Delivery"))
                 {
                     Destroy(child.gameObject);
                 }

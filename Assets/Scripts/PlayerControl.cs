@@ -13,10 +13,15 @@ public class PlayerControl : MonoBehaviour
     public float backdownRotateSpeed;
     public float brakeDeceleration;
     public Vector3 direction;
-    public Rigidbody Navigator;
+    public GameObject Navigator;
     private Rigidbody Player;
     public Vector3 velocity;
     public int inertia;
+    public float Move;
+    public float Rotate;
+    public bool CanAccelerate = false;
+
+    public GameObject Bike;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,8 +38,8 @@ public class PlayerControl : MonoBehaviour
 
     void GetInput()
     {
-        float Move = Input.GetAxisRaw("Vertical");
-        float Rotate = Input.GetAxisRaw("Horizontal");
+        //Move = Input.GetAxisRaw("Vertical");
+        //Rotate = Input.GetAxisRaw("Horizontal");
 
         inertia = 0;
         deceleration = defaultDeceleration;
@@ -54,7 +59,7 @@ public class PlayerControl : MonoBehaviour
         }
         else if ((Move + inertia) > 0)
         {
-            if ((speed < maxSpeed && Rotate == 0 && Input.GetKey(KeyCode.Space)) || speed < acceleration)
+            if ((speed < maxSpeed && CanAccelerate) || speed < acceleration)
             {
                 StartCoroutine(Accelerating());
             }
@@ -70,10 +75,14 @@ public class PlayerControl : MonoBehaviour
             }
             SetInertia();
         }
-            
-        transform.Rotate(new Vector3(0f, rotateSpeed, 0f) * Rotate * Time.deltaTime);
+        
+        if (speed != 0)
+        {
+            transform.Rotate(new Vector3(0f, rotateSpeed, 0f) * Rotate * Time.deltaTime);
+            BikeTurn((int)Rotate);
+        }
 
-        direction = new Vector3(Navigator.position.x - transform.position.x, 0f, Navigator.position.z - transform.position.z).normalized;
+        direction = new Vector3(Navigator.transform.position.x - transform.position.x, 0f, Navigator.transform.position.z - transform.position.z).normalized;
 
         Player.velocity = new Vector3((Move + inertia) * speed * direction.x, Player.velocity.y, (Move + inertia) * speed * direction.z);
     }
@@ -125,7 +134,7 @@ public class PlayerControl : MonoBehaviour
         else
         {
             inertia = 2;
-            speed = -5;
+            speed = -2;
         }
     }
     void SetVelocity()
@@ -133,6 +142,22 @@ public class PlayerControl : MonoBehaviour
         if (speed < 0)
         {
             speed = 0;
+        }
+    }
+
+    void BikeTurn(int Rotate)
+    {
+        if (Rotate == 0)
+        {
+            Bike.transform.localRotation = Quaternion.RotateTowards(Bike.transform.localRotation, Quaternion.Euler(0f, 180f, 0f), 20 * Time.deltaTime);
+        }
+        else if (Rotate > 0)
+        {
+            Bike.transform.localRotation = Quaternion.RotateTowards(Bike.transform.localRotation, Quaternion.Euler(0f, 200f, 15f), 20 * Time.deltaTime);
+        }
+        else if (Rotate < 0)
+        {
+            Bike.transform.localRotation = Quaternion.RotateTowards(Bike.transform.localRotation, Quaternion.Euler(0f, 160f, -15f), 20 * Time.deltaTime);
         }
     }
 }

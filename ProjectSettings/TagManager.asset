@@ -4,9 +4,17 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Delivery
   - Drop-off Spot
   - Wall
+  - Waypoint
+  - Obstacle
+  - Road
+  - Player Zone
+  - Pick-up Spot
+  - Delivery
+  - Block
+  - SideRoad
+  - Prop
   layers:
   - Default
   - TransparentFX
@@ -14,7 +22,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Road
   - 
   - 
   - 
