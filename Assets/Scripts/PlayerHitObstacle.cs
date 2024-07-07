@@ -12,7 +12,7 @@ public class PlayerHitObstacle : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Obstacle") || collision.gameObject.CompareTag("SideRoad"))
         {
-            if (transform.GetComponent<PlayerControl>().speed > 12)
+            if (transform.GetComponent<PlayerControl>().speed > 20)
             {
                 IsHit = true;
                 EndGamePanel.SetActive(true);

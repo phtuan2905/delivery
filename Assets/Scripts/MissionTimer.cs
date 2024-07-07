@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,10 +12,12 @@ public class MissionTimer : MonoBehaviour
 
     public Image CountDownUI;
     public GameObject EndGamePanel;
+    public TextMeshProUGUI DeliveryCount;
     // Update is called once per frame
     void Update()
     {
-        StartCoroutine("CountDown");   
+        StartCoroutine("CountDown");
+        DeliveryCount.text = MissionCount.ToString();
     }
 
     bool startCD = false;
@@ -33,6 +36,7 @@ public class MissionTimer : MonoBehaviour
         {            
             EndGamePanel.SetActive(true);
             Time.timeScale = 0;
+            time = MaxTime;
         }
     }
 }

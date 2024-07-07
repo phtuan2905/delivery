@@ -7,6 +7,6 @@ public class PropLookAt : MonoBehaviour
     public GameObject Player;
     void Update()
     {
-        transform.LookAt(Player.transform.position);
+        transform.LookAt(new Vector3(Player.transform.position.x, transform.position.y, Player.transform.position.z));
     }
 }

@@ -7,13 +7,8 @@ public class MisMaSys : MonoBehaviour
     public GameObject PickupSpot;
     public GameObject DropoffSpot;
     public GameObject Missions;
-    bool onMission = false;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public bool onMission = false;
+    public Transform Player;
 
     // Update is called once per frame
     void Update()
@@ -26,6 +21,10 @@ public class MisMaSys : MonoBehaviour
         if (!onMission)
         {
             int randomPickupSpot = Random.Range(0, transform.childCount);
+            while ( Mathf.Sqrt(Mathf.Pow(transform.GetChild(randomPickupSpot).position.x - Player.position.x, 2f) + Mathf.Pow(transform.GetChild(randomPickupSpot).position.z - Player.position.z, 2f)) >= 75)
+            {
+                randomPickupSpot = Random.Range(0, transform.childCount);
+            }
             int randomDropoffSpot = Random.Range(0, transform.childCount);
             while (CheckDistance(transform.GetChild(randomPickupSpot).position, transform.GetChild(randomDropoffSpot).position))
             {
@@ -41,20 +40,6 @@ public class MisMaSys : MonoBehaviour
 
             onMission = true;
         }
-        else
-        {
-            foreach (Transform child in Missions.transform)
-            {
-                if (child.gameObject.CompareTag("Drop-off Spot") && child.GetComponent<DropOffSpot>().isDelivered)
-                {
-                    Destroy(child.gameObject);
-                    onMission = false;
-                    Missions.GetComponent<MissionTimer>().time = Missions.GetComponent<MissionTimer>().MaxTime;
-                    Missions.GetComponent<MissionTimer>().MissionCount++;
-                }
-            }
-            
-        }
     }
 
     bool CheckDistance(Vector3 coordinate1, Vector3 coordinate2)
@@ -66,5 +51,4 @@ public class MisMaSys : MonoBehaviour
         }
         return false;
     }
-
 }

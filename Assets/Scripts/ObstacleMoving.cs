@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.VFX;
-using UnityEngine.Windows.Speech;
 
 public class ObstacleMoving : MonoBehaviour
 {

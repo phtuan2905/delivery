@@ -124,9 +124,16 @@ MonoBehaviour:
   - {fileID: 3430208648342378003, guid: 234d14af5a6c1d942a78da206117bf78, type: 3}
   - {fileID: 9178660735627208453, guid: 3d1062722d991bb4daa096807698c300, type: 3}
   - {fileID: 5223508485876978174, guid: 193ff642732b79643a285f243bdea5a0, type: 3}
-  - {fileID: 8711895854533490651, guid: dd477df949a5d9a48a93c5a070321467, type: 3}
+  - {fileID: 2926945946287668741, guid: dd477df949a5d9a48a93c5a070321467, type: 3}
   - {fileID: 7590249474007964727, guid: 7ce81ff4796358a44a71d4dc58dd04b8, type: 3}
+  - {fileID: 8251983254728766311, guid: 2e69cc7bd5dd7224591a4010d1b7ac9b, type: 3}
+  - {fileID: 7493850990174165332, guid: 09fd4b7e050f8ec47a0426409245475e, type: 3}
+  - {fileID: 4523773856793835985, guid: ca1a75479b347f247b290f9f69bdfe31, type: 3}
+  - {fileID: 2017121805111129481, guid: cb4bb46d33759db46b7855d694569d4c, type: 3}
+  - {fileID: 1536857208056552682, guid: 00d94063490df0b408e9ccc6ab8ee134, type: 3}
   NearPlayer: 0
   PlayerOnIt: 0
   NearRoads: []
   CarsNumb: 0
+  IsSpawning: 0
+  CarsSpawnPos: 

@@ -49,12 +49,8 @@ public class Pointer : MonoBehaviour
                 }
             }
         }
-
-        Direction = Target - Player.GetComponent<Transform>().position;
-        Direction.y = 0;
-        if (Direction != Vector3.zero)
-        {
-            transform.rotation = Quaternion.LookRotation(Direction);
-        }
+        
+        Target = new Vector3(Target.x, transform.position.y, Target.z);
+        transform.LookAt(Target);
     }
 }
